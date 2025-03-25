@@ -1,6 +1,22 @@
-# @covalenthq/goldrush-spam-tokens
+<div align="center">
+  
+# GoldRush Spam tokens list
 
-@covalenthq/goldrush-spam-tokens is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.
+<br />
+
+[![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/datasource-spam-filter)](https://www.npmjs.com/package/@covalenthq/datasource-spam-filter)
+[![GitHub license](https://img.shields.io/github/license/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/commits/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/pulls)
+
+[![GitHub stars](https://img.shields.io/github/stars/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/network/members)
+
+</div>
+
+<p>@covalenthq/goldrush-spam-tokens is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.</p>
 
 ---
 
@@ -144,20 +160,16 @@ console.log(ethereumNftSpam);
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-We welcome contributions from the community! If you have suggestions, improvements, or new spam contract addresses to add, please open an issue or submit a pull request. For guidelines on how to contribute, see our [Contributing Guidelines](CONTRIBUTING.md).
+We welcome contributions from the community! If you have suggestions, improvements, or new spam contract addresses to add, please open an issue or submit a pull request. Feel free to check <a href="https://github.com/covalenthq/datasource-spam-filter/issues">issues</a> page.
 
----
+## Show your support
 
-## License
+Give a ⭐️ if this project helped you!
 
-This project is licensed under the [MIT License](LICENSE).
+## 📝 License
 
----
-
-## Contact
-
-For questions or further information, please reach out via [GitHub Issues](https://github.com/CovalentHQ/goldrush-spam-tokens/issues) or join our [Community Forum](https://forum.goldrush.org).
+This project is <a href="https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE">MIT</a> licensed.
 
 *Cleaning up Crypto - One Spam Token at a Time.*
