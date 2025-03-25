@@ -1,6 +1,6 @@
 <div align="center">
   
-# GoldRush Spam tokens list
+# GoldRush Enhanced Spam Token Lists
 
 <br />
 
@@ -16,23 +16,30 @@
 
 </div>
 
-<p>@covalenthq/goldrush-spam-tokens is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.</p>
+`@covalenthq/goldrush-enhanced-spam-token-lists` is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.
 
 ---
 
 ## Overview
 
-In response to the growing problem of spam in the crypto ecosystem, GoldRush is proud to launch the first-ever multi-chain enhanced spam token lists for both ERC20 tokens and NFTs. This package supports six foundational chains—Ethereum, Base, Polygon, Optimism, BNB Chain, and Gnosis—with plans to expand further. By offering regularly updated lists, we empower the community to clean up crypto—one spam token at a time.
+In response to the growing problem of spam in the crypto ecosystem, GoldRush is proud to launch the first-ever multichain enhanced spam token lists for ERC20 tokens and NFTs. This package initially supports the following six [Foundational Chains](https://goldrush.dev/chains/) with plans to expand chain support:
+- Ethereum
+- Base
+- Polygon
+- BNB Smart Chain (BSC)
+- Optimism
+
+These enhanced spam token lists are currently **updated weekly.**
 
 ### Key Features
 
-- **Multi-Chain Support:** Initially covers Ethereum, Base, Polygon, Optimism, BNB Chain, and Gnosis.
-- **Dual-Category ERC20 Lists:**
-  - **Yes:** Contracts that are confirmed spam.
-  - **Maybe:** Contracts that are potential spam.
-- **NFT Spam List:** One YAML file per chain, where every listed contract is considered spam.
-- **Regular Updates:** Spam lists are refreshed weekly to ensure data remains current.
-- **Community-Driven:** Open for contributions, enabling collaborative efforts to enhance the spam detection process.
+- Multichain support.
+- Dedicated ERC20 and NFT spam lists.
+- Enhanced classification for ERC20 tokens:
+  - `yes`: token contracts confirmed as spam.
+  - `maybe`: token contracts that are potentially spam.
+- Updated weekly. 
+- Open source and collaborative.
 
 ---
 
@@ -67,18 +74,16 @@ The package organizes YAML files as follows:
 
 - **ERC20 Tokens:**
   - Each chain has two YAML files:
-    - `<chain>_token_spam_contracts_yes.yaml` for contracts that are definitely spam.
-    - `<chain>_token_spam_contracts_maybe.yaml` for contracts that are potentially spam.
+    - `<chain>_token_spam_contracts_yes.yaml` for token contracts confirmed as spam.
+    - `<chain>_token_spam_contracts_maybe.yaml` for token contracts that are potentially spam.
 - **NFTs:**
-  - Each chain has a single YAML file (e.g., `eth_mainnet_nft_spam_contracts.yaml`) listing all NFT spam contracts.
+  - Each chain has a single YAML file (e.g., `<chain>_nft_spam_contracts.yaml`) listing all NFT spam contracts.
 
 ---
 
 ## YAML File Formats
 
 ### ERC20 YAML File Example
-
-ERC20 tokens are divided into two categories: **Yes** (definite spam) and **Maybe** (potential spam). Here’s an example of an ERC20 YAML file:
 
 ```yaml
 ---
@@ -116,7 +121,7 @@ SpamCollections:
 Install the package using npm:
 
 ```bash
-npm install @covalenthq/goldrush-spam-tokens
+npm install @covalenthq/goldrush-enhanced-spam-token-lists
 ```
 
 ### Usage
@@ -172,4 +177,4 @@ Give a ⭐️ if this project helped you!
 
 This project is <a href="https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE">MIT</a> licensed.
 
-*Cleaning up Crypto - One Spam Token at a Time.*
+*Cleaning up crypto, one spam token at a time.*
