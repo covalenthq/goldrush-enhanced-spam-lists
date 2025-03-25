@@ -24,12 +24,12 @@ const erc20 = {
 };
 
 const nft = {
-  eth_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'eth_mainnet_nft_spam_contracts.yaml')).SpamCollections,
-  pol_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'pol_mainnet_nft_spam_contracts.yaml')).SpamCollections,
-  base_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'base_mainnet_nft_spam_contracts.yaml')).SpamCollections,
-  bsc_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'bsc_mainnet_nft_spam_contracts.yaml')).SpamCollections,
-  op_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'op_mainnet_nft_spam_contracts.yaml')).SpamCollections,
-  gnosis_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'gnosis_mainnet_nft_spam_contracts.yaml')).SpamCollections
+  eth_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'eth_mainnet_nft_spam_contracts.yaml')).SpamContracts,
+  pol_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'pol_mainnet_nft_spam_contracts.yaml')).SpamContracts,
+  base_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'base_mainnet_nft_spam_contracts.yaml')).SpamContracts,
+  bsc_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'bsc_mainnet_nft_spam_contracts.yaml')).SpamContracts,
+  op_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'op_mainnet_nft_spam_contracts.yaml')).SpamContracts,
+  gnosis_mainnet_nft_spam_contracts: loadYaml(path.join(__dirname, 'nft', 'gnosis_mainnet_nft_spam_contracts.yaml')).SpamContracts
 };
 
 module.exports = {
