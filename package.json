@@ -1,0 +1,26 @@
+{
+  "name": "@covalenthq/goldrush-spam-tokens",
+  "version": "1.0.0",
+  "description": "Multi-chain enhanced spam token lists for ERC20 & NFT contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "erc20/",
+    "nft/",
+    "README.md"
+  ],
+  "keywords": [
+    "spam",
+    "erc20",
+    "nft",
+    "crypto",
+    "tokens"
+  ],
+  "author": "covalenthq",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
