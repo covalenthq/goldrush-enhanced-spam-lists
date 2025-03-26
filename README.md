@@ -4,7 +4,8 @@
 
 <br />
 
-[![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/datasource-spam-filter)](https://www.npmjs.com/package/@covalenthq/datasource-spam-filter)
+[![NPM Version](https://img.shields.io/npm/v/@covalenthq/ai-agent-sdk)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-token-lists)
+[![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/datasource-spam-filter)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-token-lists)
 [![GitHub license](https://img.shields.io/github/license/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/commits/master)
 [![GitHub contributors](https://img.shields.io/github/contributors/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/graphs/contributors)
@@ -39,6 +40,7 @@ These enhanced spam token lists are currently **updated weekly.**
 -   Enhanced classification for ERC20 tokens:
     -   `yes`: token contracts confirmed as spam.
     -   `maybe`: token contracts that are potentially spam.
+-   Each entry includes a **spam_score** to indicate the level of risk.
 -   Updated weekly.
 -   Open source and collaborative.
 
@@ -89,14 +91,14 @@ The package organizes YAML files as follows:
 ```yaml
 ---
 SpamContracts:
-    - 56/0x00107060f34b437c5a7daf6c247e6329cf613759
-    - 56/0x00518f36d2e0e514e8eb94d34124fc18ee756f10
-    - 56/0x00757bb08d0367a44be44f9b79c06e6775f733c5
-    - 56/0x00b09b2d87f88ebfa214fd247be08b1c4c1e5484
+    - 56/0x00107060f34b437c5a7daf6c247e6329cf613759/20
+    - 56/0x00518f36d2e0e514e8eb94d34124fc18ee756f10/85
+    - 56/0x00757bb08d0367a44be44f9b79c06e6775f733c5/70
+    - 56/0x00b09b2d87f88ebfa214fd247be08b1c4c1e5484/18
 ```
 
 -   **Key:** `SpamContracts` lists ERC20 spam contracts.
--   **Format:** Each contract entry uses the `<chainid>/<contract_address>` format.
+-   **Format:** Each contract entry uses the `<chainid>/<contract_address>/<spam_score>` format.
 
 ### NFT YAML File Example
 
@@ -104,14 +106,14 @@ Each NFT YAML file is dedicated to a specific chain. Every contract listed is co
 
 ```yaml
 ---
-SpamCollections:
-    - 100/0x1043868cdc29037cce4ce3e495e601572e2cd78e
-    - 100/0x642f6eeab36134bbe6fbaab1eeb2a7ebc85739a8
-    - 100/0x616b02df3e80cec9a5dd764459141b85a91ffba4
+SpamContracts:
+    - 100/0x1043868cdc29037cce4ce3e495e601572e2cd78e/80
+    - 100/0x642f6eeab36134bbe6fbaab1eeb2a7ebc85739a8/55
+    - 100/0x616b02df3e80cec9a5dd764459141b85a91ffba4/30
 ```
 
--   **Key:** `SpamCollections` lists all NFT spam contracts.
--   **Format:** Each entry uses the `<chainid>/<contract_address>` format.
+-   **Key:** `SpamContracts` lists all NFT spam contracts.
+-   **Format:** Each entry uses the `<chainid>/<contract_address>/<spam_score>` format.
 
 ---
 
@@ -129,28 +131,36 @@ npm install @covalenthq/goldrush-enhanced-spam-token-lists
 
 #### For ERC20 Tokens
 
-Import the package and check for spam contracts. For example, to verify if a contract is confirmed spam on Ethereum:
+Import the package and check for spam contracts and spam score. For example, to verify if a contract is confirmed spam on Ethereum:
 
 ```javascript
-const spamTokens = require("@covalenthq/goldrush-spam-tokens");
-
-// Example: Verify if a contract is confirmed spam on Ethereum (chain ID "1")
+const spamTokens = require("@covalenthq/goldrush-enhanced-spam-token-lists");
 const chainId = "1";
-const contractAddress = "0xYourContractAddressHere";
+const contractAddress = "0xYourContractAddressHere".toLowerCase();
 
-// Check within the "yes" list for Ethereum
-if (
-    spamTokens.erc20.eth_mainnet_token_spam_contracts_yes.includes(
-        `${chainId}/${contractAddress}`
-    )
-) {
-    console.log("This contract is confirmed as spam!");
+const findSpamScore = (list) => {
+    const entry = list.find((e) => {
+        const [cid, addr] = e.split("/");
+        return cid === chainId && addr.toLowerCase() === contractAddress;
+    });
+    return entry ? entry.split("/")[2] : null;
+};
+
+let spamScore = findSpamScore(
+    spamTokens.erc20.eth_mainnet_token_spam_contracts_yes
+);
+if (spamScore) {
+    console.log(
+        `This contract is confirmed as spam with a spam score of ${spamScore}.`
+    );
 } else if (
-    spamTokens.erc20.eth_mainnet_token_spam_contracts_maybe.includes(
-        `${chainId}/${contractAddress}`
-    )
+    (spamScore = findSpamScore(
+        spamTokens.erc20.eth_mainnet_token_spam_contracts_maybe
+    ))
 ) {
-    console.log("This contract is potentially spam.");
+    console.log(
+        `This contract is potentially spam with a spam score of ${spamScore}.`
+    );
 } else {
     console.log("This contract is not flagged.");
 }
@@ -160,14 +170,29 @@ if (
 
 #### For NFTs
 
-Access the NFT spam list for a specific chain:
+Import the package and check for NFT spam contracts and spam score. For example, to verify if an NFT contract is flagged as spam on Ethereum:
 
 ```javascript
-const nftSpamList = require("@covalenthq/goldrush-spam-tokens").nft;
+const nftSpamList = require("@covalenthq/goldrush-enhanced-spam-token-lists");
+const chainId = "1";
+const contractAddress = "0xYourNFTContractAddressHere".toLowerCase();
 
-// Example: Get the spam NFT list for Ethereum
-const ethereumNftSpam = nftSpamList.eth_mainnet_nft_spam_contracts;
-console.log(ethereumNftSpam);
+const findSpamScore = (list) => {
+    const entry = list.find((e) => {
+        const [cid, addr] = e.split("/");
+        return cid === chainId && addr.toLowerCase() === contractAddress;
+    });
+    return entry ? entry.split("/")[2] : null;
+};
+
+const spamScore = findSpamScore(nftSpamList.nft.eth_mainnet_nft_spam_contracts);
+if (spamScore) {
+    console.log(
+        `This NFT contract is flagged as spam with a spam score of ${spamScore}.`
+    );
+} else {
+    console.log("This NFT contract is not flagged.");
+}
 ```
 
 > _Note:_ Replace `eth_mainnet_nft_spam_contracts` with the appropriate file for the desired chain.
