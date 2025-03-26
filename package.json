@@ -1,11 +1,9 @@
 {
-  "name": "@covalenthq/goldrush-spam-tokens",
-  "version": "1.0.0",
+  "name": "@covalenthq/goldrush-enhanced-spam-token-lists",
+  "version": "0.0.1",
   "description": "Multi-chain enhanced spam token lists for ERC20 & NFT contracts",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ 
   "files": [
     "erc20/",
     "nft/",
@@ -19,8 +17,24 @@
     "tokens"
   ],
   "author": "covalenthq",
+  "homepage": "https://cxt.build/docs/overview",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/covalenthq/datasource-spam-filter.git"
+  },
+  "bugs": {
+      "url": "https://github.com/covalenthq/datasource-spam-filter/issues"
+  },
   "license": "MIT",
   "dependencies": {
     "js-yaml": "^4.1.0"
-  }
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.19.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.1.3"
+}
 }
