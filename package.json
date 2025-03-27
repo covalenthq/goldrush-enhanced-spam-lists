@@ -4,6 +4,13 @@
     "description": "Multi-chain enhanced spam token lists for ERC20 & NFT contracts",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "files": [
         "dist",
         "README.md"
