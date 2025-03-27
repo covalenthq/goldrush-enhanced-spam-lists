@@ -7,7 +7,9 @@ import path from "path";
 const BASE_GITHUB_URL =
     "https://raw.githubusercontent.com/covalenthq/goldrush-enhanced-spam-lists/main";
 
-const dataCache = {};
+const dataCache: Record<string, any> = {};
+
+const defaultCache = true;
 
 const CACHE_DIR = path.join(os.tmpdir(), "goldrush-spam-cache");
 if (!fs.existsSync(CACHE_DIR)) {
@@ -19,12 +21,11 @@ if (!fs.existsSync(CACHE_DIR)) {
  * @param {string} filePath - Local file path (relative to package)
  * @returns {Promise<Object>} Parsed YAML content
  */
-const loadYaml = async (filePath, cache) => {
+const loadYaml = async (filePath: string, cache: boolean): Promise<any> => {
     if (dataCache[filePath]) {
         return dataCache[filePath];
     }
 
-    // Check disk cache
     const cacheFile = path.join(
         CACHE_DIR,
         `${filePath.replace(/\//g, "_")}.json`
@@ -56,7 +57,7 @@ const loadYaml = async (filePath, cache) => {
         }
 
         return data;
-    } catch (error) {
+    } catch (error: Error | any) {
         throw new Error(`Error loading ${filePath}: ${error.message}`);
     }
 };
@@ -76,7 +77,7 @@ export function clearCache() {
                 fs.unlinkSync(path.join(CACHE_DIR, file));
             }
         }
-    } catch (error) {
+    } catch (error: Error | any) {
         console.error(`Error clearing disk cache: ${error.message}`);
     }
 }
@@ -85,31 +86,31 @@ export function clearCache() {
  * Networks supported by the spam lists
  * @enum {string}
  */
-export const Networks = {
+export enum Networks {
     /** Ethereum Mainnet */
-    ETHEREUM: "eth-mainnet",
+    ETHEREUM = "eth-mainnet",
     /** Polygon Mainnet */
-    POLYGON: "pol-mainnet",
+    POLYGON = "pol-mainnet",
     /** Base Mainnet */
-    BASE: "base-mainnet",
+    BASE = "base-mainnet",
     /** BSC (Binance Smart Chain) Mainnet */
-    BSC: "bsc-mainnet",
+    BSC = "bsc-mainnet",
     /** Optimism Mainnet */
-    OPTIMISM: "op-mainnet",
+    OPTIMISM = "op-mainnet",
     /** Gnosis Mainnet */
-    GNOSIS: "gnosis-mainnet",
-};
+    GNOSIS = "gnosis-mainnet",
+}
 
 /**
  * Confidence levels for spam classification
  * @enum {string}
  */
-export const Confidence = {
+export enum Confidence {
     /** High confidence spam classification */
-    YES: "yes",
+    YES = "yes",
     /** Medium confidence spam classification */
-    MAYBE: "maybe",
-};
+    MAYBE = "maybe",
+}
 
 /**
  * Retrieves a specific ERC20 token spam list by network and confidence level
@@ -121,7 +122,11 @@ export const Confidence = {
  * // Get high confidence spam tokens on Ethereum
  * const ethSpam = await getERC20List(Networks.ETHEREUM, Confidence.YES);
  */
-export async function getERC20List(network, confidence, cache) {
+export const getERC20List = async (
+    network: Networks,
+    confidence: Confidence,
+    cache: boolean = defaultCache
+): Promise<string[]> {
     const networkKey = network.replaceAll("-", "_");
 
     let key = `${networkKey}_token_spam_contracts_${confidence}`;
@@ -131,7 +136,7 @@ export async function getERC20List(network, confidence, cache) {
             const part1 = await loadYaml(`erc20/${key}_1.yaml`, cache);
             const part2 = await loadYaml(`erc20/${key}_2.yaml`, cache);
             return [...part1.SpamContracts, ...part2.SpamContracts];
-        } catch (error) {
+        } catch (error: Error | any) {
             throw new Error(`Failed to load BSC spam lists: ${error.message}`);
         }
     }
@@ -139,7 +144,7 @@ export async function getERC20List(network, confidence, cache) {
     try {
         const data = await loadYaml(`erc20/${key}.yaml`, cache);
         return data.SpamContracts;
-    } catch (error) {
+    } catch (error: Error | any) {
         throw new Error(
             `Spam list for ${network} with confidence ${confidence} not found: ${error.message}`
         );
@@ -155,12 +160,15 @@ export async function getERC20List(network, confidence, cache) {
  * // Get spam NFTs on Polygon
  * const polygonNftSpam = await getNFTList(Networks.POLYGON);
  */
-export async function getNFTList(network, cache) {
+export const getNFTList = async (
+    network: Networks,
+    cache: boolean = defaultCache
+): Promise<string[]> => {
     const key = `${network}_mainnet_nft_spam_contracts`;
     try {
         const data = await loadYaml(`nft/${key}.yaml`, cache);
         return data.SpamContracts;
-    } catch (error) {
+    } catch (error: Error | any) {
         throw new Error(
             `NFT spam list for ${network} not found: ${error.message}`
         );
@@ -173,13 +181,13 @@ export async function getNFTList(network, cache) {
  * @param {string[]} spamList - List of spam entries in format "chainId/address/score"
  * @returns {boolean} True if the address is in the spam list
  */
-export const isContractSpam = (address, spamList) => {
+export const isContractSpam = (address: string, spamList: string[]) => {
     const normalizedAddress = address.toLowerCase();
 
-    return spamList.some((entry) => {
+    return spamList.some((entry: string) => {
         const parts = entry.split("/");
         if (parts.length >= 2) {
-            return parts[1].toLowerCase() === normalizedAddress;
+            return parts?.[1]?.toLowerCase() === normalizedAddress;
         }
         return false;
     });
@@ -199,12 +207,12 @@ export const isContractSpam = (address, spamList) => {
  * // Check without using the disk cache
  * const isTokenSpam = await isERC20Spam("0x123...", Networks.ETHEREUM, Confidence.YES, false);
  */
-export async function isERC20Spam(
-    address,
-    network,
-    confidence = Confidence.YES,
-    cache = true
-) {
+export const isERC20Spam = async (
+    address: string,
+    network: Networks,
+    confidence: Confidence = Confidence.YES,
+    cache: boolean = defaultCache
+): Promise<boolean> {
     const spamList = await getERC20List(network, confidence, cache);
     return isContractSpam(address, spamList);
 }
@@ -222,7 +230,11 @@ export async function isERC20Spam(
  * // Check without using the disk cache
  * const isNftSpam = await isNFTSpam("0x123...", Networks.OPTIMISM, false);
  */
-export async function isNFTSpam(address, network, cache = true) {
+export const isNFTSpam = async (
+    address: string,
+    network: Networks,
+    cache: boolean = defaultCache
+): Promise<boolean> => {
     const spamList = await getNFTList(network, cache);
     return isContractSpam(address, spamList);
 }
@@ -235,6 +247,6 @@ export async function isNFTSpam(address, network, cache = true) {
  * // Get the spam score from an entry
  * const score = getSpamScore("1/0xabcdef1234567890/75");
  */
-export const getSpamScore = (entry) => {
+export const getSpamScore = (entry: string) => {
     return entry.split("/")[2];
 };

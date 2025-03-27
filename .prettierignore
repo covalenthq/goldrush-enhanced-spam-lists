@@ -41,5 +41,4 @@ README.md
 **/*.aac
 
 # Spam lists
-erc20/**/*.yaml
-nft/**/*.yaml
+src/lists/**/*.yaml

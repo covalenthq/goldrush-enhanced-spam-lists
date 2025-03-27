@@ -16,10 +16,10 @@
         "tokens"
     ],
     "scripts": {
-        "clean": "rm -rf dist",
+        "clean": "rimraf dist",
         "build": "tsc",
         "lint": "eslint .",
-        "prepublishOnly": "cp ../../README.md . && npm run clean && npm run build",
+        "prepublishOnly": "npm run clean && npm run build",
         "pretty": "prettier . --write"
     },
     "publishConfig": {
@@ -36,13 +36,15 @@
     },
     "license": "MIT",
     "dependencies": {
-        "js-yaml": "^4.1.0",
-        "isomorphic-fetch": "^3.0.0"
+        "isomorphic-fetch": "^3.0.0",
+        "js-yaml": "^4.1.0"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.0",
         "@eslint/js": "^9.21.0",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "@types/isomorphic-fetch": "^0.0.39",
+        "@types/js-yaml": "^4.0.9",
         "@types/node": "^22.13.8",
         "@typescript-eslint/eslint-plugin": "^8.25.0",
         "@typescript-eslint/parser": "^8.25.0",
@@ -50,8 +52,7 @@
         "eslint-config-prettier": "^10.0.2",
         "eslint-plugin-prettier": "^5.2.3",
         "prettier": "^3.5.3",
-        "ts-node": "^10.9.2",
-        "tsc-watch": "^6.2.1",
+        "rimraf": "^6.0.1",
         "typescript": "5.7.3"
     }
 }
