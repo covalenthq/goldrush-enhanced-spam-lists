@@ -25,12 +25,12 @@
 
 In response to the growing problem of spam in the crypto ecosystem, GoldRush is proud to launch the first-ever multichain enhanced spam token lists for ERC20 tokens and NFTs. This package initially supports the following six [Foundational Chains](https://goldrush.dev/chains/):
 
-- Ethereum
-- Base
-- Polygon
-- BNB Smart Chain (BSC)
-- Optimism
-- Gnosis
+- Ethereum Mainnet
+- Base Mainnet
+- Polygon Mainnet
+- BNB Smart Chain (BSC) Mainnet
+- Optimism Mainnet
+- Gnosis Mainnet
 
 There are plans to extend the chain support. These enhanced spam token lists are currently **updated weekly.**
 
@@ -148,7 +148,10 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
     } from "@covalenthq/goldrush-enhanced-spam-lists";
 
     // With default options
-    const isSpam = await isERC20Spam("0xTokenAddress", Networks.ETHEREUM);
+    const isSpam = await isERC20Spam(
+        "0xTokenAddress",
+        Networks.ETHEREUM_MAINNET
+    );
     console.log(isSpam);
     ```
 
@@ -163,7 +166,7 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
 
     const isPotentialSpam = await isERC20Spam(
         "0xTokenAddress",
-        Networks.POLYGON,
+        Networks.POLYGON_MAINNET,
         Confidence.MAYBE
     );
     console.log(isPotentialSpam);
@@ -177,7 +180,7 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
         isNFTSpam,
     } from "@covalenthq/goldrush-enhanced-spam-lists";
 
-    const isNftSpam = await isNFTSpam("0xNftAddress", Networks.BSC);
+    const isNftSpam = await isNFTSpam("0xNftAddress", Networks.BSC_MAINNET);
     console.log(isNftSpam);
     ```
 
@@ -194,7 +197,7 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
     // With caching enabled (default)
     const withCache = await isERC20Spam(
         "0xTokenAddress",
-        Networks.ETHEREUM,
+        Networks.ETHEREUM_MAINNET,
         Confidence.YES,
         true // Enable caching (default)
     );
@@ -202,7 +205,7 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
     // Without caching (always fetches fresh data)
     const withoutCache = await isERC20Spam(
         "0xTokenAddress",
-        Networks.ETHEREUM,
+        Networks.ETHEREUM_MAINNET,
         Confidence.YES,
         false // Disable caching
     );
@@ -222,10 +225,13 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
     } from "@covalenthq/goldrush-enhanced-spam-lists";
 
     // Get ERC20 spam list with default caching
-    const ethSpamTokens = await getERC20List(Networks.ETHEREUM, Confidence.YES);
+    const ethSpamTokens = await getERC20List(
+        Networks.ETHEREUM_MAINNET,
+        Confidence.YES
+    );
 
     // Get NFT spam list with caching disabled
-    const bscSpamNfts = await getNFTList(Networks.BSC, false);
+    const bscSpamNfts = await getNFTList(Networks.BSC_MAINNET, false);
     ```
 
 6. Get the specific spam score for a given contract
@@ -238,7 +244,10 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
         Confidence,
     } from "@covalenthq/goldrush-enhanced-spam-lists";
 
-    const ethSpamTokens = await getERC20List(Networks.ETHEREUM, Confidence.YES);
+    const ethSpamTokens = await getERC20List(
+        Networks.ETHEREUM_MAINNET,
+        Confidence.YES
+    );
     const score = getSpamScore(ethSpamTokens[0]);
     console.log(score); // Returns the spam score as a string
     ```
