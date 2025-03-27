@@ -4,16 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@covalenthq/goldrush-enhanced-spam-lists': link:C:/Users/Yashvardhan/AppData/Local/pnpm/global/5/node_modules/@covalenthq/goldrush-enhanced-spam-lists
-
 importers:
 
   .:
     dependencies:
-      '@covalenthq/goldrush-enhanced-spam-lists':
-        specifier: link:C:/Users/Yashvardhan/AppData/Local/pnpm/global/5/node_modules/@covalenthq/goldrush-enhanced-spam-lists
-        version: link:C:/Users/Yashvardhan/AppData/Local/pnpm/global/5/node_modules/@covalenthq/goldrush-enhanced-spam-lists
       isomorphic-fetch:
         specifier: ^3.0.0
         version: 3.0.0
