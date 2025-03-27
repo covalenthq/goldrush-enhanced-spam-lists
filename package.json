@@ -1,9 +1,8 @@
 {
-  "name": "@covalenthq/goldrush-enhanced-spam-token-lists",
+  "name": "@covalenthq/goldrush-enhanced-spam-lists",
   "version": "0.0.1",
   "description": "Multi-chain enhanced spam token lists for ERC20 & NFT contracts",
   "main": "index.js",
- 
   "files": [
     "erc20/",
     "nft/",
@@ -16,14 +15,17 @@
     "crypto",
     "tokens"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "covalenthq",
-  "homepage": "https://cxt.build/docs/overview",
+  "homepage": "https://goldrush.dev/docs/resources/enhanced-spam-lists",
   "repository": {
       "type": "git",
-      "url": "https://github.com/covalenthq/datasource-spam-filter.git"
+      "url": "https://github.com/covalenthq/goldrush-enhanced-spam-lists.git"
   },
   "bugs": {
-      "url": "https://github.com/covalenthq/datasource-spam-filter/issues"
+      "url": "https://github.com/covalenthq/goldrush-enhanced-spam-lists/issues"
   },
   "license": "MIT",
   "dependencies": {

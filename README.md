@@ -1,23 +1,24 @@
 <div align="center">
   
 # GoldRush Enhanced Spam Token Lists
+[📖 Documentation](https://goldrush.dev/docs/resources/enhanced-spam-lists) |
 
 <br />
 
-[![NPM Version](https://img.shields.io/npm/v/@covalenthq/ai-agent-sdk)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-token-lists)
-[![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/datasource-spam-filter)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-token-lists)
-[![GitHub license](https://img.shields.io/github/license/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/commits/master)
-[![GitHub contributors](https://img.shields.io/github/contributors/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/graphs/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/pulls)
+[![NPM Version](https://img.shields.io/npm/v/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
+[![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
+[![GitHub license](https://img.shields.io/github/license/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/commits/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/pulls)
 
-[![GitHub stars](https://img.shields.io/github/stars/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/covalenthq/datasource-spam-filter)](https://github.com/covalenthq/datasource-spam-filter/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/network/members)
 
 </div>
 
-`@covalenthq/goldrush-enhanced-spam-token-lists` is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.
+`@covalenthq/goldrush-enhanced-spam-lists` is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.
 
 ---
 
@@ -30,6 +31,7 @@ In response to the growing problem of spam in the crypto ecosystem, GoldRush is 
 -   Polygon
 -   BNB Smart Chain (BSC)
 -   Optimism
+-   Gnosis
 
 These enhanced spam token lists are currently **updated weekly.**
 
@@ -40,7 +42,7 @@ These enhanced spam token lists are currently **updated weekly.**
 -   Enhanced classification for ERC20 tokens:
     -   `yes`: token contracts confirmed as spam.
     -   `maybe`: token contracts that are potentially spam.
--   Each entry includes a **spam_score** to indicate the level of risk.
+-   Each entry includes a `spam_score` to indicate the level of risk.
 -   Updated weekly.
 -   Open source and collaborative.
 
@@ -124,7 +126,7 @@ SpamContracts:
 Install the package using npm:
 
 ```bash
-npm install @covalenthq/goldrush-enhanced-spam-token-lists
+npm install @covalenthq/goldrush-enhanced-spam-lists
 ```
 
 ### Usage
@@ -134,7 +136,7 @@ npm install @covalenthq/goldrush-enhanced-spam-token-lists
 Import the package and check for spam contracts and spam score. For example, to verify if a contract is confirmed spam on Ethereum:
 
 ```javascript
-const spamTokens = require("@covalenthq/goldrush-enhanced-spam-token-lists");
+const spamTokens = require("@covalenthq/goldrush-enhanced-spam-lists");
 const chainId = "1";
 const contractAddress = "0xYourContractAddressHere".toLowerCase();
 
@@ -173,7 +175,7 @@ if (spamScore) {
 Import the package and check for NFT spam contracts and spam score. For example, to verify if an NFT contract is flagged as spam on Ethereum:
 
 ```javascript
-const nftSpamList = require("@covalenthq/goldrush-enhanced-spam-token-lists");
+const nftSpamList = require("@covalenthq/goldrush-enhanced-spam-lists");
 const chainId = "1";
 const contractAddress = "0xYourNFTContractAddressHere".toLowerCase();
 
@@ -201,7 +203,7 @@ if (spamScore) {
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! If you have suggestions, improvements, or new spam contract addresses to add, please open an issue or submit a pull request. Feel free to check <a href="https://github.com/covalenthq/datasource-spam-filter/issues">issues</a> page.
+We welcome contributions from the community! If you have suggestions, improvements, or new spam contract addresses to add, please open an issue or submit a pull request. Feel free to check <a href="https://github.com/covalenthq/goldrush-enhanced-spam-lists/issues">issues</a> page.
 
 ## Show your support
 
@@ -209,6 +211,6 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-This project is <a href="https://github.com/covalenthq/datasource-spam-filter/blob/main/LICENSE">MIT</a> licensed.
+This project is <a href="https://github.com/covalenthq/goldrush-enhanced-spam-lists/blob/main/LICENSE">MIT</a> licensed.
 
 _Cleaning up crypto, one spam token at a time._
