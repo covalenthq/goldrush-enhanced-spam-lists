@@ -53,27 +53,29 @@ The package organizes YAML files as follows:
 
 ```
 /
-├── erc20/
-│   ├── eth_mainnet_token_spam_contracts_yes.yaml
-│   ├── eth_mainnet_token_spam_contracts_maybe.yaml
-│   ├── base_mainnet_token_spam_contracts_yes.yaml
-│   ├── base_mainnet_token_spam_contracts_maybe.yaml
-│   ├── polygon_mainnet_token_spam_contracts_yes.yaml
-│   ├── polygon_mainnet_token_spam_contracts_maybe.yaml
-│   ├── optimism_mainnet_token_spam_contracts_yes.yaml
-│   ├── optimism_mainnet_token_spam_contracts_maybe.yaml
-│   ├── bsc_mainnet_token_spam_contracts_yes_1.yaml
-│   ├── bsc_mainnet_token_spam_contracts_yes_2.yaml
-│   ├── bsc_mainnet_token_spam_contracts_maybe.yaml
-│   ├── gnosis_mainnet_token_spam_contracts_yes.yaml
-│   └── gnosis_mainnet_token_spam_contracts_maybe.yaml
-└── nft/
-    ├── eth_mainnet_nft_spam_contracts.yaml
-    ├── base_mainnet_nft_spam_contracts.yaml
-    ├── polygon_mainnet_nft_spam_contracts.yaml
-    ├── optimism_mainnet_nft_spam_contracts.yaml
-    ├── bsc_mainnet_nft_spam_contracts.yaml
-    └── gnosis_mainnet_nft_spam_contracts.yaml
+└── src/
+    └── lists/
+        ├── erc20/
+        │   ├── eth_mainnet_token_spam_contracts_yes.yaml
+        │   ├── eth_mainnet_token_spam_contracts_maybe.yaml
+        │   ├── base_mainnet_token_spam_contracts_yes.yaml
+        │   ├── base_mainnet_token_spam_contracts_maybe.yaml
+        │   ├── pol_mainnet_token_spam_contracts_yes.yaml
+        │   ├── pol_mainnet_token_spam_contracts_maybe.yaml
+        │   ├── op_mainnet_token_spam_contracts_yes.yaml
+        │   ├── op_mainnet_token_spam_contracts_maybe.yaml
+        │   ├── bsc_mainnet_token_spam_contracts_yes_1.yaml
+        │   ├── bsc_mainnet_token_spam_contracts_yes_2.yaml
+        │   ├── bsc_mainnet_token_spam_contracts_maybe.yaml
+        │   ├── gnosis_mainnet_token_spam_contracts_yes.yaml
+        │   └── gnosis_mainnet_token_spam_contracts_maybe.yaml
+        └── nft/
+            ├── eth_mainnet_nft_spam_contracts.yaml
+            ├── base_mainnet_nft_spam_contracts.yaml
+            ├── pol_mainnet_nft_spam_contracts.yaml
+            ├── op_mainnet_nft_spam_contracts.yaml
+            ├── bsc_mainnet_nft_spam_contracts.yaml
+            └── gnosis_mainnet_nft_spam_contracts.yaml
 ```
 
 - **ERC20 Tokens:**
