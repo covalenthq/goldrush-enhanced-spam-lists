@@ -39,3 +39,7 @@ README.md
 **/*.wav
 **/*.flac
 **/*.aac
+
+# Spam lists
+erc20/**/*.yaml
+nft/**/*.yaml

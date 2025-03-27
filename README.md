@@ -1,9 +1,6 @@
 <div align="center">
   
 # GoldRush Enhanced Spam Token Lists
-[📖 Documentation](https://goldrush.dev/docs/resources/enhanced-spam-lists) |
-
-<br />
 
 [![NPM Version](https://img.shields.io/npm/v/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
 [![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
@@ -16,6 +13,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/covalenthq/goldrush-enhanced-spam-lists)](https://github.com/covalenthq/goldrush-enhanced-spam-lists/network/members)
 
+[📖 Documentation](https://goldrush.dev/docs/resources/enhanced-spam-lists)
+
 </div>
 
 `@covalenthq/goldrush-enhanced-spam-lists` is a public, open-source npm package that provides enhanced spam lists for ERC20 tokens and NFTs. Our mission is to restore trust and transparency in Web3 by helping developers, explorers, wallets, and indexers protect their users from scam tokens and malicious contracts.
@@ -24,7 +23,7 @@
 
 ## Overview
 
-In response to the growing problem of spam in the crypto ecosystem, GoldRush is proud to launch the first-ever multichain enhanced spam token lists for ERC20 tokens and NFTs. This package initially supports the following six [Foundational Chains](https://goldrush.dev/chains/) with plans to expand chain support:
+In response to the growing problem of spam in the crypto ecosystem, GoldRush is proud to launch the first-ever multichain enhanced spam token lists for ERC20 tokens and NFTs. This package initially supports the following six [Foundational Chains](https://goldrush.dev/chains/):
 
 -   Ethereum
 -   Base
@@ -33,16 +32,16 @@ In response to the growing problem of spam in the crypto ecosystem, GoldRush is 
 -   Optimism
 -   Gnosis
 
-These enhanced spam token lists are currently **updated weekly.**
+There are plans to extend the chain support. These enhanced spam token lists are currently **updated weekly.**
 
 ### Key Features
 
 -   Multichain support.
 -   Dedicated ERC20 and NFT spam lists.
 -   Enhanced classification for ERC20 tokens:
-    -   `yes`: token contracts confirmed as spam.
-    -   `maybe`: token contracts that are potentially spam.
--   Each entry includes a `spam_score` to indicate the level of risk.
+    -   `yes`: token contracts confirmed as spam (spam score > 20).
+    -   `maybe`: token contracts that are potentially spam (12 < spam score < 20).
+-   Each entry includes a `spam_score` to indicate the level of risk. Higher score indicates a higher spam risk.
 -   Updated weekly.
 -   Open source and collaborative.
 
@@ -136,68 +135,53 @@ npm install @covalenthq/goldrush-enhanced-spam-lists
 Import the package and check for spam contracts and spam score. For example, to verify if a contract is confirmed spam on Ethereum:
 
 ```javascript
-const spamTokens = require("@covalenthq/goldrush-enhanced-spam-lists");
-const chainId = "1";
-const contractAddress = "0xYourContractAddressHere".toLowerCase();
-
-const findSpamScore = (list) => {
-    const entry = list.find((e) => {
-        const [cid, addr] = e.split("/");
-        return cid === chainId && addr.toLowerCase() === contractAddress;
-    });
-    return entry ? entry.split("/")[2] : null;
-};
-
-let spamScore = findSpamScore(
-    spamTokens.erc20.eth_mainnet_token_spam_contracts_yes
-);
-if (spamScore) {
-    console.log(
-        `This contract is confirmed as spam with a spam score of ${spamScore}.`
-    );
-} else if (
-    (spamScore = findSpamScore(
-        spamTokens.erc20.eth_mainnet_token_spam_contracts_maybe
-    ))
-) {
-    console.log(
-        `This contract is potentially spam with a spam score of ${spamScore}.`
-    );
-} else {
-    console.log("This contract is not flagged.");
-}
+import {
+    Networks,
+    isERC20Spam,
+} from "@covalenthq/goldrush-enhanced-spam-lists";
+console.log(isERC20Spam("0xTokenAddress", Networks.ETHEREUM));
 ```
-
-> _Note:_ Adjust the file name based on the target chain (e.g., `base_mainnet_token_spam_contracts_yes.yaml` for Base).
-
-#### For NFTs
-
-Import the package and check for NFT spam contracts and spam score. For example, to verify if an NFT contract is flagged as spam on Ethereum:
 
 ```javascript
-const nftSpamList = require("@covalenthq/goldrush-enhanced-spam-lists");
-const chainId = "1";
-const contractAddress = "0xYourNFTContractAddressHere".toLowerCase();
-
-const findSpamScore = (list) => {
-    const entry = list.find((e) => {
-        const [cid, addr] = e.split("/");
-        return cid === chainId && addr.toLowerCase() === contractAddress;
-    });
-    return entry ? entry.split("/")[2] : null;
-};
-
-const spamScore = findSpamScore(nftSpamList.nft.eth_mainnet_nft_spam_contracts);
-if (spamScore) {
-    console.log(
-        `This NFT contract is flagged as spam with a spam score of ${spamScore}.`
-    );
-} else {
-    console.log("This NFT contract is not flagged.");
-}
+import {
+    Networks,
+    isERC20Spam,
+} from "@covalenthq/goldrush-enhanced-spam-lists";
+console.log(isERC20Spam("0xTokenAddress", Networks.POLYGON, Confidence.MAYBE));
 ```
 
-> _Note:_ Replace `eth_mainnet_nft_spam_contracts` with the appropriate file for the desired chain.
+```javascript
+import { Networks, isNFTSpam } from "@covalenthq/goldrush-enhanced-spam-lists";
+
+console.log(isNFTSpam("0xNftAddress", Networks.BSC));
+```
+
+For more control, you can get the full lists:
+
+```javascript
+import {
+    getERC20List,
+    getNFTList,
+    Confidence,
+    Networks,
+} from "@covalenthq/goldrush-enhanced-spam-lists";
+const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
+const bscSpamNfts = getNFTList(Networks.BSC);
+```
+
+You can also get the specific spam score for a given contract
+
+```javascript
+import {
+    getERC20List,
+    Networks,
+    Confidence,
+} from "@covalenthq/goldrush-enhanced-spam-lists";
+const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
+const score = getSpamScore(ethSpamTokens[0]);
+```
+
+<br>
 
 ---
 
