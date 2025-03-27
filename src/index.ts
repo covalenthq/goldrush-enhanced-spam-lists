@@ -29,22 +29,24 @@ const loadYaml = async (
     filePath: string,
     cache: boolean
 ): Promise<SpamListData> => {
-    if (dataCache[filePath]) {
+    if (cache && dataCache[filePath]) {
         return dataCache[filePath];
     }
 
-    const cacheFile = path.join(
-        CACHE_DIR,
-        `${filePath.replace(/\//g, "_")}.json`
-    );
-    try {
-        if (fs.existsSync(cacheFile)) {
-            const cached = JSON.parse(fs.readFileSync(cacheFile, "utf8"));
-            dataCache[filePath] = cached;
-            return cached;
+    if (cache) {
+        const cacheFile = path.join(
+            CACHE_DIR,
+            `${filePath.replace(/\//g, "_")}.json`
+        );
+        try {
+            if (fs.existsSync(cacheFile)) {
+                const cached = JSON.parse(fs.readFileSync(cacheFile, "utf8"));
+                dataCache[filePath] = cached;
+                return cached;
+            }
+        } catch {
+            // Skip errors and continue to fetch from GitHub
         }
-    } catch {
-        // Skip errors and continue to fetch from GitHub
     }
 
     try {
@@ -60,6 +62,10 @@ const loadYaml = async (
 
         if (cache) {
             dataCache[filePath] = data;
+            const cacheFile = path.join(
+                CACHE_DIR,
+                `${filePath.replace(/\//g, "_")}.json`
+            );
             fs.writeFileSync(cacheFile, JSON.stringify(data));
         }
 
@@ -163,7 +169,10 @@ export const getNFTList = async (
     network: Networks,
     cache: boolean = defaultCache
 ): Promise<string[]> => {
-    const key = `${network}_mainnet_nft_spam_contracts`;
+    const networkKey = network.replaceAll("-", "_");
+
+    let key = `${networkKey}_nft_spam_contracts`;
+
     try {
         const data = await loadYaml(`nft/${key}.yaml`, cache);
         return data.SpamContracts;
