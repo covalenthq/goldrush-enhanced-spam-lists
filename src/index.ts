@@ -5,9 +5,9 @@ import os from "os";
 import path from "path";
 
 const BASE_GITHUB_URL =
-    "https://raw.githubusercontent.com/covalenthq/goldrush-enhanced-spam-lists/main";
+    "https://raw.githubusercontent.com/covalenthq/goldrush-enhanced-spam-lists/main/src/lists";
 
-const dataCache: Record<string, any> = {};
+const dataCache: Record<string, SpamListData> = {};
 
 const defaultCache = true;
 
@@ -16,12 +16,19 @@ if (!fs.existsSync(CACHE_DIR)) {
     fs.mkdirSync(CACHE_DIR, { recursive: true });
 }
 
+export interface SpamListData {
+    SpamContracts: string[];
+}
+
 /**
  * Asynchronously loads a YAML file from GitHub
  * @param {string} filePath - Local file path (relative to package)
- * @returns {Promise<Object>} Parsed YAML content
+ * @returns {Promise<SpamListData>} Parsed YAML content
  */
-const loadYaml = async (filePath: string, cache: boolean): Promise<any> => {
+const loadYaml = async (
+    filePath: string,
+    cache: boolean
+): Promise<SpamListData> => {
     if (dataCache[filePath]) {
         return dataCache[filePath];
     }
@@ -49,7 +56,7 @@ const loadYaml = async (filePath: string, cache: boolean): Promise<any> => {
         }
 
         const content = await response.text();
-        const data = yaml.load(content);
+        const data = yaml.load(content) as SpamListData;
 
         if (cache) {
             dataCache[filePath] = data;
@@ -87,18 +94,12 @@ export function clearCache() {
  * @enum {string}
  */
 export enum Networks {
-    /** Ethereum Mainnet */
-    ETHEREUM = "eth-mainnet",
-    /** Polygon Mainnet */
-    POLYGON = "pol-mainnet",
-    /** Base Mainnet */
-    BASE = "base-mainnet",
-    /** BSC (Binance Smart Chain) Mainnet */
-    BSC = "bsc-mainnet",
-    /** Optimism Mainnet */
-    OPTIMISM = "op-mainnet",
-    /** Gnosis Mainnet */
-    GNOSIS = "gnosis-mainnet",
+    ETHEREUM_MAINNET = "eth-mainnet",
+    POLYGON_MAINNET = "pol-mainnet",
+    BASE_MAINNET = "base-mainnet",
+    BSC_MAINNET = "bsc-mainnet",
+    OPTIMISM_MAINNET = "op-mainnet",
+    GNOSIS_MAINNET = "gnosis-mainnet",
 }
 
 /**
@@ -106,9 +107,7 @@ export enum Networks {
  * @enum {string}
  */
 export enum Confidence {
-    /** High confidence spam classification */
     YES = "yes",
-    /** Medium confidence spam classification */
     MAYBE = "maybe",
 }
 
@@ -126,12 +125,12 @@ export const getERC20List = async (
     network: Networks,
     confidence: Confidence,
     cache: boolean = defaultCache
-): Promise<string[]> {
+): Promise<string[]> => {
     const networkKey = network.replaceAll("-", "_");
 
     let key = `${networkKey}_token_spam_contracts_${confidence}`;
 
-    if (network === Networks.BSC && confidence === Confidence.YES) {
+    if (network === Networks.BSC_MAINNET && confidence === Confidence.YES) {
         try {
             const part1 = await loadYaml(`erc20/${key}_1.yaml`, cache);
             const part2 = await loadYaml(`erc20/${key}_2.yaml`, cache);
@@ -149,7 +148,7 @@ export const getERC20List = async (
             `Spam list for ${network} with confidence ${confidence} not found: ${error.message}`
         );
     }
-}
+};
 
 /**
  * Retrieves a specific NFT spam list by network
@@ -173,7 +172,7 @@ export const getNFTList = async (
             `NFT spam list for ${network} not found: ${error.message}`
         );
     }
-}
+};
 
 /**
  * Check if an address is in the spam list
@@ -212,10 +211,10 @@ export const isERC20Spam = async (
     network: Networks,
     confidence: Confidence = Confidence.YES,
     cache: boolean = defaultCache
-): Promise<boolean> {
+): Promise<boolean> => {
     const spamList = await getERC20List(network, confidence, cache);
     return isContractSpam(address, spamList);
-}
+};
 
 /**
  * Checks if an NFT contract is spam
@@ -237,7 +236,7 @@ export const isNFTSpam = async (
 ): Promise<boolean> => {
     const spamList = await getNFTList(network, cache);
     return isContractSpam(address, spamList);
-}
+};
 
 /**
  * Extracts the spam score from a list entry
