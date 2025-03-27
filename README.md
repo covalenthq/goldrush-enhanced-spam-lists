@@ -1,6 +1,6 @@
 <div align="center">
   
-# GoldRush Enhanced Spam Token Lists
+# GoldRush Enhanced Spam Lists
 
 [![NPM Version](https://img.shields.io/npm/v/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
 [![NPM Downloads](https://img.shields.io/npm/dt/@covalenthq/goldrush-enhanced-spam-lists)](https://www.npmjs.com/package/@covalenthq/goldrush-enhanced-spam-lists)
@@ -122,64 +122,87 @@ SpamContracts:
 
 ### Installation
 
-Install the package using npm:
+Install the package using your preferred package manager:
 
 ```bash
+# npm
 npm install @covalenthq/goldrush-enhanced-spam-lists
+
+# yarn
+yarn add @covalenthq/goldrush-enhanced-spam-lists
+
+# pnpm
+pnpm add @covalenthq/goldrush-enhanced-spam-lists
 ```
 
 ### Usage
 
-#### For ERC20 Tokens
+1. Verify if an ERC20 token is spam on a given network
 
-Import the package and check for spam contracts and spam score. For example, to verify if a contract is confirmed spam on Ethereum:
+    <!-- prettier-ignore -->
+    ```javascript
+    import {
+        Networks,
+        isERC20Spam,
+    } from "@covalenthq/goldrush-enhanced-spam-lists";
 
-```javascript
-import {
-    Networks,
-    isERC20Spam,
-} from "@covalenthq/goldrush-enhanced-spam-lists";
-console.log(isERC20Spam("0xTokenAddress", Networks.ETHEREUM));
-```
+    console.log(isERC20Spam("0xTokenAddress", Networks.ETHEREUM));
+    ```
 
-```javascript
-import {
-    Networks,
-    isERC20Spam,
-} from "@covalenthq/goldrush-enhanced-spam-lists";
-console.log(isERC20Spam("0xTokenAddress", Networks.POLYGON, Confidence.MAYBE));
-```
+2. For a potential spam check for an ERC20 token, `Confidence.MAYBE` can be used
 
-```javascript
-import { Networks, isNFTSpam } from "@covalenthq/goldrush-enhanced-spam-lists";
+    <!-- prettier-ignore -->
+    ```javascript
+    import {
+        Networks,
+        isERC20Spam,
+    } from "@covalenthq/goldrush-enhanced-spam-lists";
 
-console.log(isNFTSpam("0xNftAddress", Networks.BSC));
-```
+    console.log(
+        isERC20Spam("0xTokenAddress", Networks.POLYGON, Confidence.MAYBE)
+    );
+    ```
 
-For more control, you can get the full lists:
+3. Verify if an NFT token is spam on a given network
 
-```javascript
-import {
-    getERC20List,
-    getNFTList,
-    Confidence,
-    Networks,
-} from "@covalenthq/goldrush-enhanced-spam-lists";
-const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
-const bscSpamNfts = getNFTList(Networks.BSC);
-```
+    <!-- prettier-ignore -->
+    ```javascript
+    import {
+        Networks,
+        isNFTSpam,
+    } from "@covalenthq/goldrush-enhanced-spam-lists";
 
-You can also get the specific spam score for a given contract
+    console.log(isNFTSpam("0xNftAddress", Networks.BSC));
+    ```
 
-```javascript
-import {
-    getERC20List,
-    Networks,
-    Confidence,
-} from "@covalenthq/goldrush-enhanced-spam-lists";
-const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
-const score = getSpamScore(ethSpamTokens[0]);
-```
+4. For more control, you can get the full lists:
+
+    <!-- prettier-ignore -->
+    ```javascript
+    import {
+        getERC20List,
+        getNFTList,
+        Confidence,
+        Networks,
+    } from "@covalenthq/goldrush-enhanced-spam-lists";
+
+    const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
+    const bscSpamNfts = getNFTList(Networks.BSC);
+    ```
+
+5. Get the specific spam score for a given contract
+
+    <!-- prettier-ignore -->
+    ```javascript
+    import {
+        getERC20List,
+        Networks,
+        Confidence,
+    } from "@covalenthq/goldrush-enhanced-spam-lists";
+    
+    const ethSpamTokens = getERC20List(Networks.ETHEREUM, Confidence.YES);
+    const score = getSpamScore(ethSpamTokens[0]);
+    ```
 
 <br>
 
