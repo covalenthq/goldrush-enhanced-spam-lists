@@ -154,6 +154,7 @@ pnpm add @covalenthq/goldrush-enhanced-spam-lists
     <!-- prettier-ignore -->
     ```javascript
     import {
+        Confidence,
         Networks,
         isERC20Spam,
     } from "@covalenthq/goldrush-enhanced-spam-lists";
